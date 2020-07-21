@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "66953426411",
+    "firebase_url": "https://pazzarapp-cc3cf.firebaseio.com",
+    "project_id": "pazzarapp-cc3cf",
+    "storage_bucket": "pazzarapp-cc3cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66953426411:android:af702ee52ee9e49a9d55ae",
+        "android_client_info": {
+          "package_name": "com.example.pazar_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "66953426411-ajabc46pacogrm354p9pbld6f7csq1rn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdXuoxsMSKNf5DzLDmHB0tAP0eUC7ROTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "66953426411-ajabc46pacogrm354p9pbld6f7csq1rn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

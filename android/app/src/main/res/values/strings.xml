@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">pazarApp</string>
+    <string name="facebook_app_id">1187474581606560</string>
+    <string name="fb_login_protocol_scheme">fb1187474581606560</string>
+</resources>
