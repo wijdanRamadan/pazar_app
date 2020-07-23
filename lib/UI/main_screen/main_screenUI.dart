@@ -7,6 +7,7 @@ import 'package:pazar_app/UI/main_screen/classification_pageUI/classificationsUI
 import 'package:pazar_app/UI/main_screen/home_pageUI/home_pageUI.dart';
 import 'package:pazar_app/UI/main_screen/my_account_pageUI/my_accout_with_login.dart';
 import 'package:pazar_app/UI/main_screen/notification_pageUI/notificationsUI.dart';
+import 'package:pazar_app/appDesign/main_screen_bottom_menu_design.dart';
 import 'package:pazar_app/model/home_page_content.dart';
 import 'package:pazar_app/model/home_page_slide.dart';
 import 'package:pazar_app/widgets/home_slide_item.dart';
@@ -23,6 +24,7 @@ class _MainScreenState extends State<MainScreen> {
   int _currentSliderPage = 0;
   final PageController _pageController = PageController(initialPage: 0);
   final PageController _pageController1 = PageController(initialPage: 0);
+  BottomMenuDesign _design = new BottomMenuDesign();
 
   int _innerTabsIndex = -1;
   ScrollController _scrollController =
@@ -87,36 +89,40 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home,
+              _design.home.icon,
               color: Colors.grey,
             ),
-            title: Text('الرئيسية', style: TextStyle(color: Colors.grey)),
+            title: Text(_design.homeIconText,
+                style: TextStyle(color: Colors.grey)),
           ),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.apps,
+                _design.classifications.icon,
                 color: Colors.grey,
               ),
-              title: Text('التصنيفات', style: TextStyle(color: Colors.grey))),
+              title: Text(_design.classificationsIconText,
+                  style: TextStyle(color: Colors.grey))),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.shopping_cart,
+                _design.cart.icon,
                 color: Colors.grey,
               ),
-              title: Text('السلة', style: TextStyle(color: Colors.grey))),
+              title: Text(_design.cartIconText,
+                  style: TextStyle(color: Colors.grey))),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.notifications,
+                _design.notifications.icon,
                 color: Colors.grey,
               ),
-              title: Text('التنبيهات', style: TextStyle(color: Colors.grey))),
+              title: Text(_design.notificationsIconText,
+                  style: TextStyle(color: Colors.grey))),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.account_box,
+                _design.myAccount.icon,
                 color: Colors.grey,
               ),
               title: Text(
-                'حسابي',
+                _design.myAccountIconText,
                 style: TextStyle(color: Colors.grey),
               ))
         ],

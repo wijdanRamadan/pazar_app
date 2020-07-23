@@ -37,4 +37,44 @@ class _ApiClient implements ApiClient {
     final value = RequestVerificationResponse.fromJson(_result.data);
     return value;
   }
+
+  @override
+  facebookAuth(facebookAuthRequest) async {
+    ArgumentError.checkNotNull(facebookAuthRequest, 'facebookAuthRequest');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(facebookAuthRequest?.toJson() ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/auth-facebook',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = FacebookAuthResponse.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  getCategories() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<List<dynamic>> _result = await _dio.request('/categories',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    var value = _result.data
+        .map((dynamic i) => Category.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pazar_app/UI/main_screen/my_account_pageUI/google_maps/mapUI.dart';
+import 'package:pazar_app/appDesign/my_addresses_design.dart';
 
 class MyAddresses extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class MyAddresses extends StatefulWidget {
 }
 
 class _MyAddressesState extends State<MyAddresses> {
+  MyAddDesign _design = new MyAddDesign();
   GoogleMapController mapController;
 
   final LatLng _istanbul = const LatLng(41.0082, 28.9784);
@@ -59,7 +61,7 @@ class _MyAddressesState extends State<MyAddresses> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
-                                  Text('اسم العنوان',
+                                  Text(_design.address,
                                       style: TextStyle(
                                         fontSize: 20.0,
                                       )),
@@ -67,12 +69,12 @@ class _MyAddressesState extends State<MyAddresses> {
                                       textDirection: TextDirection.rtl,
                                       decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.location_on),
-                                        hintText: 'مثلا المنزل او العمل ',
+                                        hintText: _design.addressEx,
                                         border: new OutlineInputBorder(
                                             borderSide: new BorderSide(
                                                 color: Colors.teal)),
                                       )),
-                                  Text('المجمع',
+                                  Text(_design.complex,
                                       style: TextStyle(
                                         fontSize: 20.0,
                                       )),
@@ -80,12 +82,12 @@ class _MyAddressesState extends State<MyAddresses> {
                                       textDirection: TextDirection.rtl,
                                       decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.location_on),
-                                        hintText: 'مثلا المنزل او العمل ',
+                                        hintText: _design.complexEx,
                                         border: new OutlineInputBorder(
                                             borderSide: new BorderSide(
                                                 color: Colors.teal)),
                                       )),
-                                  Text('تفاصيل العنوان',
+                                  Text(_design.addDetails,
                                       style: TextStyle(
                                         fontSize: 20.0,
                                       )),
@@ -103,7 +105,7 @@ class _MyAddressesState extends State<MyAddresses> {
                                         Column(
                                           textDirection: TextDirection.rtl,
                                           children: <Widget>[
-                                            Text('البلوك'),
+                                            Text(_design.block),
                                             Container(
                                               width: 100,
                                               child: TextField(
@@ -122,7 +124,7 @@ class _MyAddressesState extends State<MyAddresses> {
                                           mainAxisSize: MainAxisSize.min,
                                           textDirection: TextDirection.rtl,
                                           children: <Widget>[
-                                            Text('الطابق'),
+                                            Text(_design.floor),
                                             Container(
                                               width: 100,
                                               child: TextField(
@@ -142,7 +144,7 @@ class _MyAddressesState extends State<MyAddresses> {
                                         Column(
                                           textDirection: TextDirection.rtl,
                                           children: <Widget>[
-                                            Text('الشقة'),
+                                            Text(_design.apartment),
                                             Container(
                                               width: 100,
                                               child: TextField(
@@ -155,7 +157,7 @@ class _MyAddressesState extends State<MyAddresses> {
                                       ],
                                     ),
                                   ),
-                                  Text('وصف العنوان',
+                                  Text(_design.addDescription,
                                       style: TextStyle(
                                         fontSize: 20.0,
                                       )),
@@ -163,7 +165,7 @@ class _MyAddressesState extends State<MyAddresses> {
                                       textDirection: TextDirection.rtl,
                                       decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.location_on),
-                                        hintText: 'مثلا وصف العنوان ',
+                                        hintText: _design.addDescriptionEx,
                                         border: new OutlineInputBorder(
                                             borderSide: new BorderSide(
                                                 color: Colors.teal)),
@@ -177,7 +179,7 @@ class _MyAddressesState extends State<MyAddresses> {
                                         onPressed: () {},
                                         color: Colors.black,
                                         child: Text(
-                                          'إضافة العنوان',
+                                          _design.addAddress,
                                           style: TextStyle(
                                             color: Colors.white,
                                           ),

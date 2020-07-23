@@ -1,11 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pazar_app/appDesign/for_sale_item_card_design.dart';
 import 'package:pazar_app/model/card.dart';
 
 class ForSaleItemCard extends StatefulWidget {
   List<NormalCardModel> cardInfo;
-
   int index;
 
   ForSaleItemCard(this.cardInfo, this.index);

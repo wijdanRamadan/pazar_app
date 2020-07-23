@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pazar_app/UI/for_sale_item_card_categoryUI.dart';
+import 'package:pazar_app/UI/for_sale_item_card.dart';
+import 'package:pazar_app/appDesign/all_classification_design.dart';
+import 'package:pazar_app/model/home_page_content.dart';
 import 'package:pazar_app/networking/model/category.dart';
 
 import 'all_classifications_bottom_sheets/classifying_sheet.dart';
@@ -12,6 +14,7 @@ class AllClassifications extends StatefulWidget {
 
 class _AllClassificationsState extends State<AllClassifications> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  AllClassificationDesign _design = AllClassificationDesign();
 
   Map data = {};
 
@@ -75,7 +78,7 @@ class _AllClassificationsState extends State<AllClassifications> {
                           children: <Widget>[
                             Icon(Icons.filter_list),
                             Text(
-                              'التصنيفات',
+                              _design.classifications,
                               style: TextStyle(
                                   color: Colors.black, fontSize: 20.0),
                             )
@@ -99,7 +102,7 @@ class _AllClassificationsState extends State<AllClassifications> {
                           children: <Widget>[
                             Icon(Icons.filter_list),
                             Text(
-                              'الترتيب',
+                              _design.ordering,
                               style: TextStyle(
                                   color: Colors.black, fontSize: 20.0),
                             )
@@ -137,8 +140,7 @@ class _AllClassificationsState extends State<AllClassifications> {
               SliverGrid(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
-                delegate: SliverChildListDelegate(
-                    _getAllClassificationCards(categories)),
+                delegate: SliverChildListDelegate(_getAllClassificationCards()),
               ),
             ],
           ),
@@ -147,11 +149,11 @@ class _AllClassificationsState extends State<AllClassifications> {
     );
   }
 
-  List<Widget> _getAllClassificationCards(List<Category> categories) {
+  List<Widget> _getAllClassificationCards() {
     List<Widget> widgets = List<Widget>();
 
-    for (int i = 0; i < categories.length; i++) {
-      widgets.add(new ForSaleItemCardCategory(categories, i));
+    for (int i = 0; i < contentList.length; i++) {
+      widgets.add(new ForSaleItemCard(contentList[i].cards, i));
     }
 
     return widgets;

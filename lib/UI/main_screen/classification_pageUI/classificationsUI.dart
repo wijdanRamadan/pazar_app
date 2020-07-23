@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:pazar_app/appDesign/classification_design.dart';
 import 'package:pazar_app/networking/api_services.dart';
 import 'package:pazar_app/networking/model/category.dart';
 
@@ -11,19 +12,22 @@ class ClassificationUI extends StatefulWidget {
 }
 
 class _ClassificationUIState extends State<ClassificationUI> {
+  ClassificationDesign _design = new ClassificationDesign();
   List<Category> categories = List<Category>();
+
+  getClassificationCardInfo() async {
+    final dio = Dio(); // Provide a dio instance
+    final client = ApiClient(dio);
+    await client.getCategories().then((value) {
+      categories = value;
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    final dio = Dio(); // Provide a dio instance
-    dio.options.headers["Demo-Header"] =
-        "demo header"; // config your dio headers globally
-    final client = ApiClient(dio);
-
-    // client.getCategories().then((it) => categories=it);
+    getClassificationCardInfo();
   }
 
   @override
@@ -32,23 +36,22 @@ class _ClassificationUIState extends State<ClassificationUI> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.amber,
-        title: Padding(
-          padding: const EdgeInsets.fromLTRB(90.0, 0.0, 90.0, 0.0),
-          child: Row(
-            children: <Widget>[
-              Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.shopping_cart,
+              color: Colors.black,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Pazar App',
+                style: TextStyle(color: Colors.black),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Pazar App',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
         centerTitle: true,
         actions: <Widget>[
@@ -69,9 +72,9 @@ class _ClassificationUIState extends State<ClassificationUI> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    FlatButton(child: Text('كل الماركات')),
+                    FlatButton(child: Text(_design.allMarkets)),
                     Text(
-                      'الماركات',
+                      _design.markets,
                       style: TextStyle(
                           fontSize: 16.0,
                           color: Colors.black,
@@ -113,7 +116,7 @@ class _ClassificationUIState extends State<ClassificationUI> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     FlatButton(
-                      child: Text('كل التصنيفات'),
+                      child: Text(_design.allClassifications),
                       onPressed: () {
                         Navigator.pushReplacementNamed(
                             context, '/allClassifications',
@@ -121,7 +124,7 @@ class _ClassificationUIState extends State<ClassificationUI> {
                       },
                     ),
                     Text(
-                      'التصنيفات',
+                      _design.classifications,
                       style: TextStyle(
                           fontSize: 16.0,
                           color: Colors.black,

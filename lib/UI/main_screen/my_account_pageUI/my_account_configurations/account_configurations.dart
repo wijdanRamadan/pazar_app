@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pazar_app/appDesign/account_config_design.dart';
 
 class AccountConfigurations extends StatefulWidget {
   @override
@@ -12,6 +13,8 @@ class _AccountConfigurationsState extends State<AccountConfigurations> {
   bool isSwitched2 = false;
   bool isSwitched3 = false;
   bool isSwitched4 = false;
+
+  AccountConfigDesign _design = new AccountConfigDesign();
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +45,11 @@ class _AccountConfigurationsState extends State<AccountConfigurations> {
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
                         Expanded(
-                          child: Text('تنبيه تغيير حالة الطلب بواسطة اشعارات التطبيق', textDirection: TextDirection.rtl,
-                          style: TextStyle(
-                            fontSize: 20.0
-                          ),),
+                          child: Text(
+                            _design.config1,
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(fontSize: 20.0),
+                          ),
                         ),
                         Switch(
                           activeColor: Colors.yellow[600],
@@ -60,10 +64,9 @@ class _AccountConfigurationsState extends State<AccountConfigurations> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
-                        Text('الرسائل الاعلانية بواسطة التطبيق' , textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                        fontSize: 20.0
-                    )),
+                        Text(_design.config2,
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(fontSize: 20.0)),
                         Switch(
                           activeColor: Colors.yellow[600],
                           value: isSwitched2,
@@ -77,10 +80,9 @@ class _AccountConfigurationsState extends State<AccountConfigurations> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
-                        Text('رسائل تغيير حالة الطلب بواسطة ',textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                        fontSize: 20.0
-                    )),
+                        Text(_design.config3,
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(fontSize: 20.0)),
                         Switch(
                           activeColor: Colors.yellow[600],
                           value: isSwitched3,
@@ -94,10 +96,9 @@ class _AccountConfigurationsState extends State<AccountConfigurations> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
-                        Text('رسائل الاعلانات بواسطة ', textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                        fontSize: 20.0
-                    )),
+                        Text(_design.config4,
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(fontSize: 20.0)),
                         Switch(
                           activeColor: Colors.yellow[600],
                           value: isSwitched4,

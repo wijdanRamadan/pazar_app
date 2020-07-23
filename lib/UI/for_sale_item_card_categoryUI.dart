@@ -3,13 +3,10 @@ import 'package:pazar_app/appDesign/for_sale_item_card_design.dart';
 import 'package:pazar_app/model/card.dart';
 import 'package:pazar_app/networking/model/category.dart';
 
-
 class ForSaleItemCardCategory extends StatefulWidget {
-  List<Category> cardInfo;
+  Category cardInfo;
 
-  int index;
-
-  ForSaleItemCardCategory(this.cardInfo, this.index);
+  ForSaleItemCardCategory(this.cardInfo);
 
   @override
   _ForSaleItemCardCategoryState createState() =>

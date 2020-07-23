@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:pazar_app/UI/for_sale_itemUI.dart';
@@ -57,23 +58,22 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.amber,
-        title: Padding(
-          padding: const EdgeInsets.fromLTRB(90.0, 0.0, 90.0, 0.0),
-          child: Row(
-            children: <Widget>[
-              Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(
+              Icons.shopping_cart,
+              color: Colors.black,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Pazar App',
+                style: TextStyle(color: Colors.black),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Pazar App',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
         centerTitle: true,
         actions: <Widget>[

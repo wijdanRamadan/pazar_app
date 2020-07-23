@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pazar_app/UI/main_screen/shopping_pageUI/shopping_item.dart';
+import 'package:pazar_app/appDesign/shopping_page_design.dart';
 import 'package:pazar_app/model/add_to_shopping_bag_model.dart';
 
 class ShoppingPage extends StatefulWidget {
@@ -8,6 +9,7 @@ class ShoppingPage extends StatefulWidget {
 }
 
 class _ShoppingPageState extends State<ShoppingPage> {
+  ShoppingPageDesign _design = new ShoppingPageDesign();
   double totalPrice = 0;
 
   @override
@@ -47,7 +49,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           children: <Widget>[
                             Material(
                               child: Text(
-                                ' الإجمالي',
+                                _design.total,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20.0,
@@ -66,7 +68,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                   ),
                                 )),
                                 Material(
-                                    child: Text('ليرة',
+                                    child: Text(_design.lira,
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 15.0,
@@ -80,7 +82,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Material(
-                              child: Text('التخفيض',
+                              child: Text(_design.discount,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20.0,
@@ -92,7 +94,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 onPressed: () {},
                                 color: Colors.transparent,
                                 child: Text(
-                                  'إضافة قسيمة التخفيض',
+                                  _design.addCoupon,
                                   style: TextStyle(
                                       color: Colors.yellow[600],
                                       fontSize: 20.0,
@@ -112,7 +114,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                   ),
                                 )),
                                 Material(
-                                    child: Text('ليرة',
+                                    child: Text(_design.lira,
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 15.0,
@@ -138,7 +140,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                             padding: const EdgeInsets.all(8.0),
                             child: FlatButton(
                               child: Text(
-                                'الشراء الان',
+                                _design.buyNow,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
@@ -150,7 +152,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           ),
                           Column(
                             children: <Widget>[
-                              Material(child: Text('اللإجمالي')),
+                              Material(child: Text(_design.total)),
                               Expanded(
                                 child: Row(
                                   textDirection: TextDirection.rtl,
@@ -164,7 +166,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                       ),
                                     )),
                                     Material(
-                                        child: Text('ليرة',
+                                        child: Text(_design.lira,
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 15.0,

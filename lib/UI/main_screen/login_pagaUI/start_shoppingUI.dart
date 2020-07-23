@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:http/http.dart' as http;
 import 'package:pazar_app/UI/main_screen/main_screenUI.dart';
 import 'package:pazar_app/appDesign/start_shopping_design.dart';
 import 'package:pazar_app/networking/api_services.dart';
-import 'package:pazar_app/networking/facebook_profile_info_service.dart';
-import 'package:pazar_app/networking/model/FacebookAccessTokenModel.dart';
+import 'package:pazar_app/networking/model/FacebookAuthRequest.dart';
+import 'package:pazar_app/networking/model/Profile.dart';
 import 'package:pazar_app/networking/model/RequestVerificationBody.dart';
 
 class StartShopping extends StatefulWidget {
@@ -16,62 +20,60 @@ class StartShopping extends StatefulWidget {
 }
 
 class _StartShoppingState extends State<StartShopping> {
-
   FacebookLogin facebookSignIn = new FacebookLogin();
-
-
   final myController = TextEditingController();
 
   StartShoppingDesign _design = StartShoppingDesign();
-
-
-  String _message = 'Log in/out by pressing the buttons below.';
+  FacebookAuthRequest authRequest = new FacebookAuthRequest();
 
   Future<Null> _login() async {
-    final FacebookLoginResult result =
-    await facebookSignIn.logIn(['email']);
+    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+    final FirebaseAuth _auth = FirebaseAuth.instance;
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
-        final dio = Dio(); // Provide a dio instance
-        final client = FacebookClient(dio);
-
         final FacebookAccessToken accessToken = result.accessToken;
-        FacebookAccessTokenModel accessTokenModel = new FacebookAccessTokenModel(access_token: accessToken.token);
+        AuthCredential credential =
+            FacebookAuthProvider.getCredential(accessToken: accessToken.token);
+        AuthResult authResult =
+            // ignore: missing_return
+            await _auth.signInWithCredential(credential).then((value) {
+          profile.facebookToken = accessToken.token;
+          profile.facebookAccountId = accessToken.userId;
+          profile.phone = value.user.phoneNumber;
+          profile.email = value.user.email;
+          profile.name = value.user.displayName;
 
-        client.getProfile(accessTokenModel).then((value) =>
-            print(value.name)
-        );
+          authRequest.email = profile.email;
+          authRequest.name = profile.name;
+          authRequest.facebook_account_id = profile.facebookAccountId;
+          authRequest.facebook_token = profile.facebookToken;
+          authRequest.device = "ANDROID";
+          authRequest.firebase_token = value.user.uid;
+          if (value.user.phoneNumber != null)
+            authRequest.phone = value.user.phoneNumber;
+          else
+            authRequest.phone = "01000000000";
+          authRequest.COMMENT = "sss";
+          authRequest.region_id = 1;
+          authRequest.default_address = "xxxxxx";
 
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainScreen()));
+        });
 
-        _showMessage('''
-         Logged in!
-         Token: ${accessToken.token}
-         User id: ${accessToken.userId}
-         Expires: ${accessToken.expires}
-         Permissions: ${accessToken.permissions}
-         Declined permissions: ${accessToken.declinedPermissions}
-         ''');
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        _showMessage('Login cancelled by the user.');
-        break;
-      case FacebookLoginStatus.error:
-        _showMessage('Something went wrong with the login process.\n'
-            'Here\'s the error Facebook gave us: ${result.errorMessage}');
-        break;
+        await http
+            .post(
+          "http://dolato.boraq-group.net/api/auth-facebook",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(authRequest),
+        )
+            .then((value) {
+          print(value.body);
+        });
     }
-  }
-
-  Future<Null> _logOut() async {
-    await facebookSignIn.logOut();
-    _showMessage('Logged out.');
-  }
-
-  void _showMessage(String message) {
-    setState(() {
-      _message = message;
-    });
   }
 
   @override
@@ -198,11 +200,12 @@ class _StartShoppingState extends State<StartShopping> {
                 ),
               ),
               FlatButton(
-                color: Colors.black,
-                  child: Text('login with facebook'
-                  ,style: TextStyle(color: Colors.white),),
-                  onPressed: _login
-              ),
+                  color: Colors.black,
+                  child: Text(
+                    'login with facebook',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: _login),
               FlatButton(
                 onPressed: () {
                   Navigator.push(context,
@@ -216,7 +219,6 @@ class _StartShoppingState extends State<StartShopping> {
                       color: _design.skipButtonTextColor),
                 ),
               ),
-
             ],
           ),
         ),

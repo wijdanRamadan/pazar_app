@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pazar_app/UI/main_screen/my_account_pageUI/my_account_configurations/account_configurations.dart';
 import 'package:pazar_app/UI/main_screen/my_account_pageUI/my_addresses/my_addresses.dart';
+import 'package:pazar_app/appDesign/my_account_with_login_design.dart';
+import 'package:pazar_app/networking/model/Profile.dart';
 
 class MyAccountWithLogIn extends StatefulWidget {
   @override
@@ -8,8 +10,7 @@ class MyAccountWithLogIn extends StatefulWidget {
 }
 
 class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
-  Color fontColor = Color(Colors.grey[700].value);
-  double fontSize = 16.0;
+  MyAccountWithLoginDesign _design = new MyAccountWithLoginDesign();
 
   @override
   Widget build(BuildContext context) {
@@ -56,23 +57,28 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Material(
-                                  child: Text(
-                                'name surname',
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.yellow[600],
-                                    fontWeight: FontWeight.bold),
-                                textDirection: TextDirection.rtl,
-                              )),
+                                child: profile.name != null
+                                    ? Text(
+                                        profile.name,
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.yellow[600],
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    : Text('unknown'),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Material(
-                                  child: Text(
-                                '0000000000',
-                                style: TextStyle(),
-                                textDirection: TextDirection.rtl,
-                              )),
+                                  child: profile.email != null
+                                      ? Text(
+                                          profile.email,
+                                          style: TextStyle(),
+                                          textDirection: TextDirection.rtl,
+                                        )
+                                      : Text('000000')),
                             ),
                             FlatButton(
                                 onPressed: () {
@@ -89,10 +95,10 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                                       padding: const EdgeInsets.fromLTRB(
                                           15.0, 8.0, 15.0, 8.0),
                                       child: Text(
-                                        'إعدادات حسابي',
+                                        _design.accountConfig,
                                         style: TextStyle(
-                                            color: fontColor,
-                                            fontSize: fontSize,
+                                            color: _design.fontColor,
+                                            fontSize: _design.fontSize,
                                             fontWeight: FontWeight.bold),
                                         textDirection: TextDirection.rtl,
                                       ),
@@ -110,10 +116,10 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                                       padding: const EdgeInsets.fromLTRB(
                                           15.0, 8.0, 15.0, 8.0),
                                       child: Text(
-                                        'مشترياتي',
+                                        _design.purchases,
                                         style: TextStyle(
-                                            color: fontColor,
-                                            fontSize: fontSize,
+                                            color: _design.fontColor,
+                                            fontSize: _design.fontSize,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     )
@@ -133,10 +139,10 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                                       padding: const EdgeInsets.fromLTRB(
                                           15.0, 8.0, 15.0, 8.0),
                                       child: Text(
-                                        'عناويني',
+                                        _design.addresses,
                                         style: TextStyle(
-                                            color: fontColor,
-                                            fontSize: fontSize,
+                                            color: _design.fontColor,
+                                            fontSize: _design.fontSize,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     )
@@ -152,10 +158,10 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                                     padding: const EdgeInsets.fromLTRB(
                                         15.0, 8.0, 15.0, 8.0),
                                     child: Text(
-                                      'مفضلتي',
+                                      _design.favorite,
                                       style: TextStyle(
-                                          color: fontColor,
-                                          fontSize: fontSize,
+                                          color: _design.fontColor,
+                                          fontSize: _design.fontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   )
@@ -178,7 +184,7 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                               child: ExpansionTile(
                                 leading: Icon(Icons.keyboard_arrow_down),
                                 title: Text(
-                                  'لغة التطبيق',
+                                  _design.appLang,
                                   textDirection: TextDirection.rtl,
                                 ),
                                 trailing: Icon(Icons.language),
@@ -186,11 +192,11 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                                   Column(
                                     children: <Widget>[
                                       FlatButton(
-                                        child: Text('turkçe'),
+                                        child: Text(_design.turkish),
                                         onPressed: () {},
                                       ),
                                       FlatButton(
-                                        child: Text('العربية'),
+                                        child: Text(_design.arabic),
                                         onPressed: () {},
                                       )
                                     ],
@@ -221,10 +227,10 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                                         padding: const EdgeInsets.fromLTRB(
                                             15.0, 8.0, 15.0, 8.0),
                                         child: Text(
-                                          'تسجيل الخروج',
+                                          _design.logOut,
                                           style: TextStyle(
-                                              color: fontColor,
-                                              fontSize: fontSize,
+                                              color: _design.fontColor,
+                                              fontSize: _design.fontSize,
                                               fontWeight: FontWeight.bold),
                                           textDirection: TextDirection.rtl,
                                         ),
@@ -238,7 +244,7 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                             padding: const EdgeInsets.all(8.0),
                             child: Material(
                                 child: Text(
-                              'تواصل معنا ',
+                              _design.contactUs,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
@@ -297,7 +303,7 @@ class _MyAccountWithLogInState extends State<MyAccountWithLogIn> {
                             padding: const EdgeInsets.all(8.0),
                             child: Material(
                                 child: Text(
-                              'إصدار التطبيق',
+                              _design.appVersion,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,

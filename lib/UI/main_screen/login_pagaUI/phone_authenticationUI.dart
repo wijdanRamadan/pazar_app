@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pazar_app/UI/main_screen/main_screenUI.dart';
+import 'package:pazar_app/appDesign/phone_auth_design.dart';
 import 'package:pazar_app/appDesign/start_shopping_design.dart';
 import 'package:pazar_app/networking/model/RequestVerificationResponse.dart';
 
@@ -13,6 +14,7 @@ class _PhoneAuthenticationPageState extends State<PhoneAuthenticationPage> {
   final myController = TextEditingController();
 
   StartShoppingDesign _design = StartShoppingDesign();
+  PhoneAuthDesign _phoneAuthDesign = PhoneAuthDesign();
 
   Map data = {};
 
@@ -21,6 +23,7 @@ class _PhoneAuthenticationPageState extends State<PhoneAuthenticationPage> {
     data = ModalRoute.of(context).settings.arguments;
     RequestVerificationResponse verificationResponse =
         data['verification_response'];
+    String verificationCode = verificationResponse.verification_code.toString();
     print(verificationResponse.verification_code);
 
     return Scaffold(
@@ -40,7 +43,8 @@ class _PhoneAuthenticationPageState extends State<PhoneAuthenticationPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "التحقق من رقم الموبايل",
+                    "التحقق من رقم الموبايل"
+                    "your verification code is :$verificationCode ",
                     style: TextStyle(color: Colors.black, fontSize: 20),
                   ),
                 ),
@@ -64,7 +68,7 @@ class _PhoneAuthenticationPageState extends State<PhoneAuthenticationPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: FlatButton(
                     child: Text(
-                      'التالي',
+                      _phoneAuthDesign.buttonText,
                       style: TextStyle(color: Colors.black, fontSize: 20.0),
                     ),
                     onPressed: () {
